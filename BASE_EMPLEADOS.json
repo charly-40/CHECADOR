@@ -17,7 +17,7 @@
     "DEPARTAMENTO": "VENTAS",
     "PUESTO": "PREVENTISTA",
     "RUTA": "406401-02",
-    "ID": " ",
+    "ID": "111111",
     "NOMBRE(S)": "VACANTE",
     "AP_PAT": "VACANTE",
     "AP_MAT": "VACANTE",
@@ -312,3 +312,4 @@
     "SEXO": "M"
   }
 ]
+
