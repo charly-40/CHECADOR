@@ -1,0 +1,18 @@
+{
+  "colores_corporativos": {
+    "verde_primario": "#2E7D32",
+    "verde_claro": "#4CAF50",
+    "naranja_primario": "#FF9800",
+    "naranja_oscuro": "#F57C00",
+    "blanco": "#FFFFFF",
+    "gris_oscuro": "#212121",
+    "gris_claro": "#F5F5F5",
+    "rojo_error": "#D32F2F",
+    "verde_exito": "#388E3C"
+  },
+  "fuentes_principales": {
+    "titulo": "Roboto Bold",
+    "cuerpo": "Roboto Regular",
+    "pequeno": "Roboto Light"
+  }
+}
