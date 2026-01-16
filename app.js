@@ -315,7 +315,8 @@ function procesarQR(qr) {
   const emp = empleados.find(e => Number(e.ID) === id);
   if (!emp) return mensajeError("Empleado no encontrado.");
 
-  const tokenEmp = String(emp.TOKEN || "").trim().toUpperCase();
+  const tokenEmp = String(emp["TOKEN"] || "").trim().toUpperCase();
+  alert("TOKEN QR: " + tokenLeido + "\nTOKEN JSON: " + tokenEmp);
   if (tokenEmp !== tokenLeido) return mensajeError("TOKEN incorrecto.");
 
   if (yaChecoReciente(id)) return mensajeError("Ya está registrado hace poco. Espera 2 minutos.");
