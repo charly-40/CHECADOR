@@ -3,10 +3,10 @@
 // ======================================================
 const URL_EMPLEADOS = "https://raw.githubusercontent.com/charly-40/CHECADOR/refs/heads/main/BASE_EMPLEADOS.json";
 
-// Cierre diario (solo entradas, sin salidas)
+// Cierre diario
 const HORA_CIERRE = "18:00";
 
-// Antiduplicado: si checó hace menos de X minutos, no registra
+// Antiduplicado (min)
 const ANTI_DUP_MIN = 2;
 
 // Hora entrada default si no existe por empleado
@@ -14,10 +14,10 @@ const HORA_ENTRADA_DEFAULT = "07:00";
 
 // LocalStorage keys
 const LS_EMPLEADOS = "checador_empleados";
-const LS_REGISTROS = "checador_registros"; // array de registros
+const LS_REGISTROS = "checador_registros";
 
 let empleados = [];
-let modo = "checadas"; // checadas | cierre
+let modo = "checadas";
 let stream = null;
 
 // ======================================================
@@ -63,21 +63,14 @@ function limpiarTexto(s) {
 }
 
 function buildNombre(emp) {
-  // Soporta tu formato actual
   const nom = limpiarTexto(emp["NOMBRE(S)"]);
   const ap = limpiarTexto(emp["AP_PAT"]);
   const am = limpiarTexto(emp["AP_MAT"]);
   return `${nom} ${ap} ${am}`.replace(/\s+/g, " ").trim();
 }
 
-function getId(emp) {
-  const raw = emp.ID;
-  const n = Number(raw);
-  return Number.isFinite(n) ? n : null;
-}
-
 function isActivo(emp) {
-  // Si no existe, asumimos activo excepto VACANTE
+  // Si mañana agregas ACTIVO, se puede usar aquí.
   const nom = limpiarTexto(emp["NOMBRE(S)"]).toUpperCase();
   const ap = limpiarTexto(emp["AP_PAT"]).toUpperCase();
   if (nom === "VACANTE" || ap === "VACANTE") return false;
@@ -85,13 +78,12 @@ function isActivo(emp) {
 }
 
 function getHoraEntrada(emp) {
-  // Si mañana agregas campo HORA_ENTRADA al JSON, se toma desde ahí
-  // Por ahora default 07:00
+  // Si tu JSON tiene HORA_ENTRADA, la usa. Si no, 07:00
   return limpiarTexto(emp.HORA_ENTRADA) || HORA_ENTRADA_DEFAULT;
 }
 
 // ======================================================
-// EMPLEADOS (CACHE + GITHUB)
+// EMPLEADOS
 // ======================================================
 async function cargarEmpleadosCache() {
   try {
@@ -106,12 +98,13 @@ async function actualizarEmpleadosDesdeGitHub() {
   try {
     const r = await fetch(URL_EMPLEADOS, { cache: "no-store" });
     if (!r.ok) throw new Error("HTTP " + r.status);
-    const data = await r.json();
 
+    const data = await r.json();
     if (!Array.isArray(data)) throw new Error("JSON no es arreglo");
 
     empleados = data;
     localStorage.setItem(LS_EMPLEADOS, JSON.stringify(empleados));
+
     setEstado(`Empleados: ${empleados.length} | ${hoyYYYYMMDD()} ${nowHHMM()}`);
   } catch (err) {
     setEstado(`OFFLINE | Empleados cache: ${empleados.length}`);
@@ -124,7 +117,6 @@ async function actualizarEmpleadosDesdeGitHub() {
 function iniciarRelojModo() {
   setInterval(() => {
     const hora = nowHHMM();
-
     if (hora >= HORA_CIERRE) {
       if (modo !== "cierre") {
         modo = "cierre";
@@ -140,7 +132,7 @@ function iniciarRelojModo() {
 }
 
 // ======================================================
-// UI VISTAS
+// UI
 // ======================================================
 function vistaEspera() {
   setEstado(`Modo checadas | ${hoyYYYYMMDD()} ${nowHHMM()}`);
@@ -148,7 +140,7 @@ function vistaEspera() {
   document.getElementById("app").innerHTML = `
     <div style="background:#fff;border-radius:14px;padding:14px;">
       <div style="font-size:18px;font-weight:bold;">Listo para checar</div>
-      <div style="margin-top:6px;color:#666;">Escanea tu gafete (QR)</div>
+      <div style="margin-top:6px;color:#666;">Escanea tu gafete (QR frontal)</div>
 
       <div style="margin-top:14px;">
         <button id="btnIniciar"
@@ -221,13 +213,13 @@ function vistaCierre() {
 }
 
 // ======================================================
-// QR SCAN (CAMARA FRONTAL)
+// QR SCAN (FRONTAL)
 // ======================================================
 async function abrirEscanerQR() {
   document.getElementById("app").innerHTML = `
     <div style="background:#fff;border-radius:14px;padding:14px;">
       <div style="font-size:18px;font-weight:bold;">Escaneo QR (frontal)</div>
-      <div style="margin-top:6px;color:#666;">Coloca el gafete frente a la cámara</div>
+      <div style="margin-top:6px;color:#666;">Ejemplo QR: 11140WWKV</div>
 
       <div style="margin-top:12px;">
         <video id="video" autoplay playsinline
@@ -252,13 +244,13 @@ async function abrirEscanerQR() {
 
   if (!("BarcodeDetector" in window)) {
     document.getElementById("msg").innerText =
-      "Este dispositivo no soporta BarcodeDetector en WebView. (Alternativa: librería JS de QR)";
+      "Este dispositivo no soporta BarcodeDetector en WebView.";
     return;
   }
 
   try {
     stream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode: "user" }, // FRONTAL
+      video: { facingMode: "user" },
       audio: false
     });
 
@@ -278,16 +270,15 @@ async function abrirEscanerQR() {
           procesarQR(qr);
           return;
         }
-      } catch (e) {
-        // ignorar
-      }
+      } catch (e) {}
 
       requestAnimationFrame(loop);
     };
 
     requestAnimationFrame(loop);
   } catch (err) {
-    document.getElementById("msg").innerText = "No se pudo abrir cámara frontal. Revisa permisos.";
+    document.getElementById("msg").innerText =
+      "No se pudo abrir cámara frontal. Revisa permisos.";
   }
 }
 
@@ -302,39 +293,32 @@ async function detenerCamara() {
 
 // ======================================================
 // PROCESAR QR
-// Formato esperado: ID|TOKEN
-// Por ahora si solo viene ID, también lo acepta.
+// Formato esperado: 11140WWKV  (ID + TOKEN)
 // ======================================================
 function procesarQR(qr) {
-  if (!qr) {
-    vistaEspera();
-    return;
+  if (!qr) return vistaEspera();
+
+  qr = String(qr).trim().toUpperCase();
+
+  const m = qr.match(/^(\d+)([A-Z0-9]{4})$/);
+  if (!m) {
+    return mensajeError("QR inválido. Formato esperado: ID + 4 caracteres (ej: 11140WWKV).");
   }
 
-  // Soporta QR "502386|X7K2"
-  const parts = qr.split("|").map(x => x.trim());
-  const id = Number(parts[0]);
-  if (!Number.isFinite(id)) {
-    mensajeError("QR inválido (no es ID numérico).");
-    return;
-  }
+  const id = Number(m[1]);
+  const tokenLeido = m[2];
 
   const emp = empleados.find(e => Number(e.ID) === id);
-  if (!emp) {
-    mensajeError("Empleado no encontrado.");
-    return;
-  }
+  if (!emp) return mensajeError("Empleado no encontrado.");
 
-  if (!isActivo(emp)) {
-    mensajeError("Registro no permitido: VACANTE / NO ACTIVO.");
-    return;
-  }
+  if (!isActivo(emp)) return mensajeError("Registro no permitido: VACANTE / NO ACTIVO.");
 
-  // Antiduplicado
-  if (yaChecoReciente(id)) {
-    mensajeError("Ya está registrado hace poco. Espera 2 minutos.");
-    return;
-  }
+  const tokenEmp = String(emp.TOKEN || "").trim().toUpperCase();
+  if (!tokenEmp) return mensajeError("Este empleado no tiene TOKEN en el JSON.");
+
+  if (tokenEmp !== tokenLeido) return mensajeError("TOKEN incorrecto.");
+
+  if (yaChecoReciente(id)) return mensajeError("Ya está registrado hace poco. Espera 2 minutos.");
 
   vistaConfirmacion(emp);
 }
@@ -353,12 +337,11 @@ function mensajeError(txt) {
       </div>
     </div>
   `;
-
   document.getElementById("btnOk").onclick = () => vistaEspera();
 }
 
 // ======================================================
-// CONFIRMACION (mantener presionado) + FOTO EVIDENCIA (frontal)
+// CONFIRMACION + FOTO EVIDENCIA
 // ======================================================
 function vistaConfirmacion(emp) {
   const nombre = buildNombre(emp);
@@ -402,14 +385,13 @@ function vistaConfirmacion(emp) {
 
   document.getElementById("btnCancelar").onclick = () => vistaEspera();
 
-  // Mantener presionado
   const circulo = document.getElementById("circulo");
   const txt = document.getElementById("progresoTxt");
 
   let timer = null;
   let prog = 0;
-  const msTotal = 1200; // 1.2s
-  const step = 50; // ms
+  const msTotal = 1200;
+  const step = 50;
 
   const start = () => {
     prog = 0;
@@ -419,6 +401,7 @@ function vistaConfirmacion(emp) {
 
     timer = setInterval(async () => {
       prog += (step / msTotal) * 100;
+
       if (prog >= 100) {
         prog = 100;
         clearInterval(timer);
@@ -431,10 +414,10 @@ function vistaConfirmacion(emp) {
         vibrar();
         beep();
 
-        // FOTO evidencia + guardar registro
         await registrarEntrada(emp);
         return;
       }
+
       txt.innerText = `${Math.floor(prog)}%`;
     }, step);
   };
@@ -449,7 +432,6 @@ function vistaConfirmacion(emp) {
   circulo.addEventListener("touchstart", (e) => { e.preventDefault(); start(); }, { passive:false });
   circulo.addEventListener("touchend", (e) => { e.preventDefault(); stop(); }, { passive:false });
 
-  // por si usan mouse
   circulo.addEventListener("mousedown", start);
   circulo.addEventListener("mouseup", stop);
   circulo.addEventListener("mouseleave", stop);
@@ -462,7 +444,6 @@ function vibrar() {
 }
 
 function beep() {
-  // Beep simple (sin archivo)
   try {
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
     const o = ctx.createOscillator();
@@ -480,7 +461,7 @@ function beep() {
 }
 
 // ======================================================
-// REGISTRO + FOTO EVIDENCIA (frontal)
+// REGISTRO
 // ======================================================
 async function registrarEntrada(emp) {
   const id = Number(emp.ID);
@@ -489,7 +470,6 @@ async function registrarEntrada(emp) {
 
   const { estatus, minutosTarde } = calcularTardanza(horaEntrada);
 
-  // Foto evidencia (frontal)
   const evidencia = await tomarFotoEvidenciaFrontal();
 
   const registro = {
@@ -502,15 +482,14 @@ async function registrarEntrada(emp) {
     puesto: limpiarTexto(emp.PUESTO),
     ruta: limpiarTexto(emp.RUTA),
     horaEntradaEsperada: horaEntrada,
-    tardanzaMin: minutosTarde,
     estatus,
+    tardanzaMin: minutosTarde,
     evidenciaOK: evidencia.ok,
-    evidenciaBase64: evidencia.base64 // por ahora se guarda local (pesado)
+    evidenciaBase64: evidencia.base64
   };
 
   guardarRegistro(registro);
 
-  // Mostrar resultado
   document.getElementById("app").innerHTML = `
     <div style="background:#fff;border-radius:14px;padding:14px;">
       <div style="font-size:18px;font-weight:bold;color:#0b6;">Entrada registrada ✅</div>
@@ -532,8 +511,10 @@ async function registrarEntrada(emp) {
 }
 
 function calcularTardanza(horaEntradaStr) {
-  // horaEntradaStr "07:00"
-  const [hh, mm] = horaEntradaStr.split(":").map(x => Number(x));
+  const parts = String(horaEntradaStr).split(":");
+  const hh = Number(parts[0] || 7);
+  const mm = Number(parts[1] || 0);
+
   const now = new Date();
   const entrada = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hh, mm, 0);
 
@@ -543,10 +524,7 @@ function calcularTardanza(horaEntradaStr) {
   return { estatus: "TARDE", minutosTarde: diffMin };
 }
 
-// Toma 1 foto rápida con cámara frontal
 async function tomarFotoEvidenciaFrontal() {
-  // ⚠️ WebView a veces limita cámaras múltiples.
-  // Aquí abrimos cámara frontal rápido, capturamos y cerramos.
   try {
     const s = await navigator.mediaDevices.getUserMedia({
       video: { facingMode: "user" },
@@ -567,10 +545,8 @@ async function tomarFotoEvidenciaFrontal() {
     const ctx = canvas.getContext("2d");
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-    // cerrar cámara
     s.getTracks().forEach(t => t.stop());
 
-    // Comprimir a JPG
     const base64 = canvas.toDataURL("image/jpeg", 0.65);
     return { ok: true, base64 };
   } catch (e) {
@@ -609,7 +585,7 @@ function yaChecoReciente(id) {
 }
 
 // ======================================================
-// REPORTE CSV (correo manual)
+// REPORTE CSV (correo en texto)
 // ======================================================
 function enviarReporteCSV() {
   const csv = generarCSVHoy();
@@ -618,14 +594,10 @@ function enviarReporteCSV() {
     return;
   }
 
-  // ⚠️ mailto NO adjunta archivos. Por eso lo mandamos en el cuerpo (texto).
-  // Es lo más estable sin servidor.
   const asunto = encodeURIComponent(`REPORTE CHECADOR ${hoyYYYYMMDD()}`);
   const cuerpo = encodeURIComponent(csv);
 
-  // Cambia aquí el correo destino cuando quieras
   const correo = "encargado@empresa.com";
-
   window.location.href = `mailto:${correo}?subject=${asunto}&body=${cuerpo}`;
 }
 
@@ -672,7 +644,6 @@ function generarCSVHoy() {
 
 function csvSafe(v) {
   const s = String(v ?? "");
-  // Encierra con comillas si trae coma o comillas
   if (s.includes(",") || s.includes('"') || s.includes("\n")) {
     return `"${s.replace(/"/g, '""')}"`;
   }
