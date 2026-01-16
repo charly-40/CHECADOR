@@ -295,16 +295,12 @@ async function detenerCamara() {
 // PROCESAR QR
 // Formato esperado: 11140WWKV  (ID + TOKEN)
 // ======================================================
-alert("QR leido: " + qr);
-
 function procesarQR(qr) {
   if (!qr) return vistaEspera();
 
   qr = String(qr).trim().toUpperCase();
 
-  // QR esperado: 11140WWKV  (ID + TOKEN)
   const m = qr.match(/^(\d+)([A-Z0-9]{4})$/);
-
   if (!m) {
     return mensajeError("QR inválido. Usa formato: ID + 4 caracteres (ej: 11140WWKV).");
   }
@@ -315,8 +311,16 @@ function procesarQR(qr) {
   const emp = empleados.find(e => Number(e.ID) === id);
   if (!emp) return mensajeError("Empleado no encontrado.");
 
+  // OJO: Excel -> columna "TOKEN"
   const tokenEmp = String(emp["TOKEN"] || "").trim().toUpperCase();
-  alert("TOKEN QR: " + tokenLeido + "\nTOKEN JSON: " + tokenEmp);
+
+  alert(
+    "QR leido: " + qr +
+    "\nID: " + id +
+    "\nTOKEN QR: [" + tokenLeido + "]" +
+    "\nTOKEN JSON: [" + tokenEmp + "]"
+  );
+
   if (tokenEmp !== tokenLeido) return mensajeError("TOKEN incorrecto.");
 
   if (yaChecoReciente(id)) return mensajeError("Ya está registrado hace poco. Espera 2 minutos.");
