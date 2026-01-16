@@ -9,7 +9,11 @@
     "NOMBRE(S)": "FAUSTO",
     "AP_PAT": "GOMEZ",
     "AP_MAT": "RAMOS",
-    "SEXO": "H"
+    "SEXO": "H",
+    "TOKEN": "HSGB",
+    "HORA_ENTRADA": "07:00",
+    "FOTO": " ",
+    "ACTIVO": "SI"
   },
   {
     "GRUPO": "HIDALGO",
@@ -17,11 +21,15 @@
     "DEPARTAMENTO": "VENTAS",
     "PUESTO": "PREVENTISTA",
     "RUTA": "406401-02",
-    "ID": "111111",
+    "ID": 111111,
     "NOMBRE(S)": "VACANTE",
     "AP_PAT": "VACANTE",
     "AP_MAT": "VACANTE",
-    "SEXO": "H"
+    "SEXO": "H",
+    "TOKEN": "WWWB",
+    "HORA_ENTRADA": "07:00",
+    "FOTO": " ",
+    "ACTIVO": "NO"
   },
   {
     "GRUPO": "HIDALGO",
@@ -33,7 +41,11 @@
     "NOMBRE(S)": "JUAN CARLOS",
     "AP_PAT": "VAZQUEZ",
     "AP_MAT": "VELAZQUEZ",
-    "SEXO": "H"
+    "SEXO": "H",
+    "TOKEN": "WWKV",
+    "HORA_ENTRADA": "07:00",
+    "FOTO": " ",
+    "ACTIVO": "SI"
   },
   {
     "GRUPO": "HIDALGO",
@@ -45,7 +57,11 @@
     "NOMBRE(S)": "JUAN",
     "AP_PAT": "PEREZ",
     "AP_MAT": "RODRIGUEZ",
-    "SEXO": "H"
+    "SEXO": "H",
+    "TOKEN": "QSKV",
+    "HORA_ENTRADA": "07:00",
+    "FOTO": " ",
+    "ACTIVO": "SI"
   },
   {
     "GRUPO": "HIDALGO",
@@ -57,7 +73,11 @@
     "NOMBRE(S)": "CESAR ARTURO",
     "AP_PAT": "ARTEAGA",
     "AP_MAT": "MORALES",
-    "SEXO": "H"
+    "SEXO": "H",
+    "TOKEN": "BNDF",
+    "HORA_ENTRADA": "07:00",
+    "FOTO": " ",
+    "ACTIVO": "SI"
   },
   {
     "GRUPO": "HIDALGO",
@@ -69,7 +89,11 @@
     "NOMBRE(S)": "JULIO CESAR",
     "AP_PAT": "AMADOR",
     "AP_MAT": "HERNANDEZ",
-    "SEXO": "H"
+    "SEXO": "H",
+    "TOKEN": "BIKV",
+    "HORA_ENTRADA": "07:00",
+    "FOTO": " ",
+    "ACTIVO": "SI"
   },
   {
     "GRUPO": "HIDALGO",
@@ -81,7 +105,11 @@
     "NOMBRE(S)": "ISRAEL",
     "AP_PAT": "MAYORGA",
     "AP_MAT": "MARTINEZ",
-    "SEXO": "H"
+    "SEXO": "H",
+    "TOKEN": "NNJT",
+    "HORA_ENTRADA": "07:00",
+    "FOTO": " ",
+    "ACTIVO": "SI"
   },
   {
     "GRUPO": "HIDALGO",
@@ -93,7 +121,11 @@
     "NOMBRE(S)": "ANYELY",
     "AP_PAT": "URBANO",
     "AP_MAT": "PORTOCARRERO",
-    "SEXO": "M"
+    "SEXO": "M",
+    "TOKEN": "VQBO",
+    "HORA_ENTRADA": "07:00",
+    "FOTO": " ",
+    "ACTIVO": "SI"
   },
   {
     "GRUPO": "HIDALGO",
@@ -105,7 +137,11 @@
     "NOMBRE(S)": "ANA GABRIELA",
     "AP_PAT": "MARTINEZ",
     "AP_MAT": "ALBERTO",
-    "SEXO": "M"
+    "SEXO": "M",
+    "TOKEN": "NBBO",
+    "HORA_ENTRADA": "07:00",
+    "FOTO": " ",
+    "ACTIVO": "SI"
   },
   {
     "GRUPO": "HIDALGO",
@@ -117,7 +153,11 @@
     "NOMBRE(S)": "ANGEL",
     "AP_PAT": "TOLENTINO",
     "AP_MAT": "DEL",
-    "SEXO": "H"
+    "SEXO": "H",
+    "TOKEN": "UEBO",
+    "HORA_ENTRADA": "07:00",
+    "FOTO": " ",
+    "ACTIVO": "SI"
   },
   {
     "GRUPO": "HIDALGO",
@@ -129,7 +169,11 @@
     "NOMBRE(S)": "GUADALUPE MONSERRAT",
     "AP_PAT": "MONTERROSAS",
     "AP_MAT": "ALONSO",
-    "SEXO": "M"
+    "SEXO": "M",
+    "TOKEN": "NBHV",
+    "HORA_ENTRADA": "07:00",
+    "FOTO": " ",
+    "ACTIVO": "SI"
   },
   {
     "GRUPO": "HIDALGO",
@@ -141,7 +185,11 @@
     "NOMBRE(S)": "MONICA",
     "AP_PAT": "ORTIZ",
     "AP_MAT": "CASILLAS",
-    "SEXO": "M"
+    "SEXO": "M",
+    "TOKEN": "PDNP",
+    "HORA_ENTRADA": "07:00",
+    "FOTO": " ",
+    "ACTIVO": "SI"
   },
   {
     "GRUPO": "HIDALGO",
@@ -153,7 +201,11 @@
     "NOMBRE(S)": "ANA",
     "AP_PAT": "MONTERROSAS",
     "AP_MAT": "AVILA",
-    "SEXO": "M"
+    "SEXO": "M",
+    "TOKEN": "NBBO",
+    "HORA_ENTRADA": "07:00",
+    "FOTO": " ",
+    "ACTIVO": "SI"
   },
   {
     "GRUPO": "HIDALGO",
@@ -165,7 +217,11 @@
     "NOMBRE(S)": "FABIAN",
     "AP_PAT": "SOTO",
     "AP_MAT": "ENRIQUEZ",
-    "SEXO": "H"
+    "SEXO": "H",
+    "TOKEN": "TFGB",
+    "HORA_ENTRADA": "07:00",
+    "FOTO": " ",
+    "ACTIVO": "SI"
   },
   {
     "GRUPO": "HIDALGO",
@@ -177,7 +233,11 @@
     "NOMBRE(S)": "ELIAS",
     "AP_PAT": "ORTIZ",
     "AP_MAT": "LEON",
-    "SEXO": "H"
+    "SEXO": "H",
+    "TOKEN": "PMFM",
+    "HORA_ENTRADA": "07:00",
+    "FOTO": " ",
+    "ACTIVO": "SI"
   },
   {
     "GRUPO": "HIDALGO",
@@ -189,7 +249,11 @@
     "NOMBRE(S)": "JESUS JORGE",
     "AP_PAT": "MENDIOLA",
     "AP_MAT": "FLORES",
-    "SEXO": "H"
+    "SEXO": "H",
+    "TOKEN": "NGKF",
+    "HORA_ENTRADA": "07:00",
+    "FOTO": " ",
+    "ACTIVO": "SI"
   },
   {
     "GRUPO": "HIDALGO",
@@ -201,7 +265,11 @@
     "NOMBRE(S)": "HUGO IRAN",
     "AP_PAT": "HERNADEZ",
     "AP_MAT": "SANTOS",
-    "SEXO": "H"
+    "SEXO": "H",
+    "TOKEN": "ITIV",
+    "HORA_ENTRADA": "07:00",
+    "FOTO": " ",
+    "ACTIVO": "SI"
   },
   {
     "GRUPO": "HIDALGO",
@@ -213,7 +281,11 @@
     "NOMBRE(S)": "JESUS ALEXANDRO",
     "AP_PAT": "MARTINEZ",
     "AP_MAT": "LOYA",
-    "SEXO": "H"
+    "SEXO": "H",
+    "TOKEN": "NMKF",
+    "HORA_ENTRADA": "07:00",
+    "FOTO": " ",
+    "ACTIVO": "SI"
   },
   {
     "GRUPO": "HIDALGO",
@@ -225,7 +297,11 @@
     "NOMBRE(S)": "JESSICA MARIBEL",
     "AP_PAT": "GONZALEZ",
     "AP_MAT": "RODRIGUEZ",
-    "SEXO": "M"
+    "SEXO": "M",
+    "TOKEN": "HSKF",
+    "HORA_ENTRADA": "07:00",
+    "FOTO": " ",
+    "ACTIVO": "SI"
   },
   {
     "GRUPO": "HIDALGO",
@@ -237,7 +313,11 @@
     "NOMBRE(S)": "JUAN JOSÉ",
     "AP_PAT": "PORTILLO",
     "AP_MAT": "JIMENEZ",
-    "SEXO": "H"
+    "SEXO": "H",
+    "TOKEN": "QKKV",
+    "HORA_ENTRADA": "07:00",
+    "FOTO": " ",
+    "ACTIVO": "SI"
   },
   {
     "GRUPO": "HIDALGO",
@@ -249,7 +329,11 @@
     "NOMBRE(S)": "JAZMIN",
     "AP_PAT": "CANALES",
     "AP_MAT": "ISLAS",
-    "SEXO": "M"
+    "SEXO": "M",
+    "TOKEN": "DJKB",
+    "HORA_ENTRADA": "07:00",
+    "FOTO": " ",
+    "ACTIVO": "SI"
   },
   {
     "GRUPO": "HIDALGO",
@@ -261,7 +345,11 @@
     "NOMBRE(S)": "YUNUE GUADALUPE",
     "AP_PAT": "SOLANO",
     "AP_MAT": "BENITO",
-    "SEXO": "M"
+    "SEXO": "M",
+    "TOKEN": "TCZV",
+    "HORA_ENTRADA": "07:00",
+    "FOTO": " ",
+    "ACTIVO": "SI"
   },
   {
     "GRUPO": "HIDALGO",
@@ -273,7 +361,11 @@
     "NOMBRE(S)": "EDGAR RAYMUNDO DE",
     "AP_PAT": "LEON",
     "AP_MAT": "ESTRADA",
-    "SEXO": "H"
+    "SEXO": "H",
+    "TOKEN": "MFFE",
+    "HORA_ENTRADA": "07:00",
+    "FOTO": " ",
+    "ACTIVO": "SI"
   },
   {
     "GRUPO": "HIDALGO",
@@ -285,7 +377,11 @@
     "NOMBRE(S)": "JESUS ALBERTO",
     "AP_PAT": "ROMERO",
     "AP_MAT": "SOLIS",
-    "SEXO": "H"
+    "SEXO": "H",
+    "TOKEN": "STKF",
+    "HORA_ENTRADA": "07:00",
+    "FOTO": " ",
+    "ACTIVO": "SI"
   },
   {
     "GRUPO": "HIDALGO",
@@ -297,7 +393,11 @@
     "NOMBRE(S)": "ARACELI",
     "AP_PAT": "BENITEZ",
     "AP_MAT": "SANTIN",
-    "SEXO": "M"
+    "SEXO": "M",
+    "TOKEN": "CTBS",
+    "HORA_ENTRADA": "07:00",
+    "FOTO": " ",
+    "ACTIVO": "SI"
   },
   {
     "GRUPO": "HIDALGO",
@@ -309,7 +409,10 @@
     "NOMBRE(S)": "MARIA MAGDALENA",
     "AP_PAT": "AGUIRRE",
     "AP_MAT": "MARTINEZ",
-    "SEXO": "M"
+    "SEXO": "M",
+    "TOKEN": "BNNB",
+    "HORA_ENTRADA": "07:00",
+    "FOTO": " ",
+    "ACTIVO": "SI"
   }
 ]
-
