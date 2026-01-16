@@ -295,6 +295,8 @@ async function detenerCamara() {
 // PROCESAR QR
 // Formato esperado: 11140WWKV  (ID + TOKEN)
 // ======================================================
+alert("QR leido: " + qr);
+
 function procesarQR(qr) {
   if (!qr) return vistaEspera();
 
