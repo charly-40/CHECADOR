@@ -300,9 +300,11 @@ function procesarQR(qr) {
 
   qr = String(qr).trim().toUpperCase();
 
+  // QR esperado: 11140WWKV  (ID + TOKEN)
   const m = qr.match(/^(\d+)([A-Z0-9]{4})$/);
+
   if (!m) {
-    return mensajeError("QR inválido. Formato esperado: ID + 4 caracteres (ej: 11140WWKV).");
+    return mensajeError("QR inválido. Usa formato: ID + 4 caracteres (ej: 11140WWKV).");
   }
 
   const id = Number(m[1]);
@@ -311,11 +313,7 @@ function procesarQR(qr) {
   const emp = empleados.find(e => Number(e.ID) === id);
   if (!emp) return mensajeError("Empleado no encontrado.");
 
-  if (!isActivo(emp)) return mensajeError("Registro no permitido: VACANTE / NO ACTIVO.");
-
   const tokenEmp = String(emp.TOKEN || "").trim().toUpperCase();
-  if (!tokenEmp) return mensajeError("Este empleado no tiene TOKEN en el JSON.");
-
   if (tokenEmp !== tokenLeido) return mensajeError("TOKEN incorrecto.");
 
   if (yaChecoReciente(id)) return mensajeError("Ya está registrado hace poco. Espera 2 minutos.");
