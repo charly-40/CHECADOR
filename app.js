@@ -1,4 +1,4 @@
-const URL_EMPLEADOS = "PON_AQUI_TU_RAW_DE_GITHUB.json"; // empleados/config si lo separaste
+const URL_EMPLEADOS = "https://raw.githubusercontent.com/charly-40/CHECADOR/refs/heads/main/BASE_EMPLEADOS.json"; // empleados/config si lo separaste
 
 let empleados = [];
 
