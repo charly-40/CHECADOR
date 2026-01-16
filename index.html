@@ -2,12 +2,17 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
   <title>Checador</title>
 </head>
-<body style="font-family:Arial;padding:16px">
-  <h2 id="titulo">Checador</h2>
-  <div id="app"></div>
+
+<body style="margin:0;font-family:Arial;background:#f4f4f4;">
+  <div style="padding:14px;background:#111;color:#fff;">
+    <div style="font-size:18px;font-weight:bold;">CHECADOR</div>
+    <div id="estado" style="font-size:12px;opacity:.8;">Cargando...</div>
+  </div>
+
+  <div id="app" style="padding:14px;"></div>
 
   <script src="app.js"></script>
 </body>
